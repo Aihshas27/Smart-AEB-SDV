@@ -7,7 +7,10 @@ Ensures physically sound constraints (e.g., brakes cannot pull car backwards).
 """
 
 from typing import Tuple
-from sdv_aeb.signals import CollisionStatus, VehicleSignalBus
+try:
+    from sdv_aeb.signals import CollisionStatus, VehicleSignalBus
+except ModuleNotFoundError:
+    from signals import CollisionStatus, VehicleSignalBus
 
 
 class VehicleDynamics:

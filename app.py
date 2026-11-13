@@ -27,17 +27,30 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from sdv_aeb.simulator import AEBSimulator
-from sdv_aeb.signals import AEBState, CollisionStatus
-from sdv_aeb.renderers import (
-    build_interactive_player_html,
-    render_top_down_view,
-    render_side_view,
-    render_third_person_view,
-    render_driver_pov_view,
-    render_architecture_diagram,
-    get_aeb_colors,
-)
+try:
+    from sdv_aeb.simulator import AEBSimulator
+    from sdv_aeb.signals import AEBState, CollisionStatus
+    from sdv_aeb.renderers import (
+        build_interactive_player_html,
+        render_top_down_view,
+        render_side_view,
+        render_third_person_view,
+        render_driver_pov_view,
+        render_architecture_diagram,
+        get_aeb_colors,
+    )
+except ModuleNotFoundError:
+    from simulator import AEBSimulator
+    from signals import AEBState, CollisionStatus
+    from renderers import (
+        build_interactive_player_html,
+        render_top_down_view,
+        render_side_view,
+        render_third_person_view,
+        render_driver_pov_view,
+        render_architecture_diagram,
+        get_aeb_colors,
+    )
 
 # Page configuration
 st.set_page_config(
@@ -629,8 +642,9 @@ def render_tab4_scenarios():
     if st.button("▶️ Execute Automated Test Suite (test_simulation.py)", type="primary"):
         with st.spinner("Running test suite..."):
             try:
+                test_script = root_dir / "test_simulation.py"
                 res = subprocess.run(
-                    [sys.executable, "test_simulation.py"],
+                    [sys.executable, str(test_script)],
                     cwd=str(root_dir),
                     capture_output=True,
                     text=True,

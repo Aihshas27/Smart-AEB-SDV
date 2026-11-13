@@ -7,7 +7,10 @@ and commands brake pressure via virtual actuator contracts.
 """
 
 from typing import Tuple
-from sdv_aeb.signals import AEBState, VehicleSignalBus
+try:
+    from sdv_aeb.signals import AEBState, VehicleSignalBus
+except ModuleNotFoundError:
+    from signals import AEBState, VehicleSignalBus
 
 
 class AEBControllerECU:

@@ -10,11 +10,18 @@ from typing import Dict, Any, List, Tuple
 import pandas as pd
 import numpy as np
 
-from sdv_aeb.signals import VehicleSignalBus, AEBState, CollisionStatus
-from sdv_aeb.sensors import VirtualSpeedSensor, VirtualDistanceSensor
-from sdv_aeb.ecu import AEBControllerECU
-from sdv_aeb.actuators import VirtualBrakeActuator
-from sdv_aeb.dynamics import VehicleDynamics
+try:
+    from sdv_aeb.signals import VehicleSignalBus, AEBState, CollisionStatus
+    from sdv_aeb.sensors import VirtualSpeedSensor, VirtualDistanceSensor
+    from sdv_aeb.ecu import AEBControllerECU
+    from sdv_aeb.actuators import VirtualBrakeActuator
+    from sdv_aeb.dynamics import VehicleDynamics
+except ModuleNotFoundError:
+    from signals import VehicleSignalBus, AEBState, CollisionStatus
+    from sensors import VirtualSpeedSensor, VirtualDistanceSensor
+    from ecu import AEBControllerECU
+    from actuators import VirtualBrakeActuator
+    from dynamics import VehicleDynamics
 
 
 class AEBSimulator:
